@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Матрёшка — тату-студия в Череповце</title>
+  <meta name="description" content="Тату-студия «Матрёшка» в Череповце: блэкворк, реализм, графика, цветные и мелкие работы. Ленина 102б. Запись по телефону и в Telegram.">
+  <link rel="icon" href="images/brand/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#080405; --bg2:#12090b; --blood:#b3122b; --scarlet:#e0213f; --deep:#5a0b1a;
+      --fg:#eee6dc; --muted:#c2b7b0; --line:rgba(224,33,63,.3);
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--fg); font-family:'Montserrat',sans-serif; line-height:1.65; overflow-x:hidden;
+      cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M3 2 L22 14 L13.5 15.5 L10 24 Z' fill='%23d11a35' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 3 2, auto; }
+    a, button, .btn, .work, .sk, .stu, summary { cursor:pointer; }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; width:100%; height:100%; object-fit:cover; -webkit-user-drag:none; user-select:none; }
+    h1,h2,h3 { font-family:'Playfair Display',serif; text-transform:uppercase; letter-spacing:2px; font-weight:700; line-height:1.15; }
+    .wrap { width:min(1180px,92%); margin:0 auto; }
+    .tag { color:var(--scarlet); font-size:12px; letter-spacing:5px; text-transform:uppercase; font-weight:600; margin-bottom:10px; }
+    .h2 { font-size:clamp(30px,4.6vw,56px); color:var(--fg); margin-bottom:16px; }
+    .h2 .w { display:inline-block; white-space:nowrap; margin-right:.28em; }
+    .h2 .c { display:inline-block; }
+    .sub { color:var(--muted); max-width:580px; margin-bottom:40px; }
+    .line-draw { height:1px; background:linear-gradient(90deg,transparent,var(--blood),transparent); transform-origin:center; }
+
+    /* Кнопки */
+    .btn { display:inline-block; padding:14px 28px; border:1px solid var(--scarlet); color:var(--fg); font-weight:600; letter-spacing:2px; text-transform:uppercase; font-size:12px; background:transparent; transition:background .25s,color .25s,border-color .25s; }
+    .btn:hover { background:var(--scarlet); color:#fff; }
+    .btn.fill { background:var(--blood); border-color:var(--blood); color:#fff; animation:pulse 3.2s ease-in-out infinite; }
+    .btn.fill:hover { background:var(--scarlet); border-color:var(--scarlet); }
+    @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(224,33,63,0); } 50% { box-shadow:0 0 22px 2px rgba(224,33,63,.45); } }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline:2px solid var(--scarlet); outline-offset:3px; }
+
+    /* Меню */
+    .nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:10px 4%;
+      background:rgba(10,4,6,.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+    .brand img { width:46px; height:46px; border-radius:50%; border:1px solid var(--scarlet); }
+    .nav nav { display:flex; gap:34px; font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600; color:var(--fg); }
+    .nav nav a { position:relative; padding:6px 0; }
+    .nav nav a::after { content:""; position:absolute; left:0; bottom:0; width:100%; height:2px; background:var(--scarlet); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+    .nav nav a:hover::after { transform:scaleX(1); }
+
+    /* Главный экран */
+    .hero { position:relative; height:100vh; height:100svh; overflow:hidden; background:var(--bg); }
+    .inside { position:absolute; inset:0; z-index:0; display:flex; align-items:center; justify-content:center; padding:72px 0 24px;
+      background:radial-gradient(circle at 72% 52%,rgba(179,18,43,.3),transparent 55%),radial-gradient(circle at 50% 50%,#2c0612 0%,#080405 72%); }
+    .inside .help-grid { width:min(1180px,92%); }
+    .stage, .breathe { position:absolute; inset:0; pointer-events:none; }
+    .stage { z-index:1; }
+    .half { position:absolute; inset:0; pointer-events:none; background:url('images/brand/hero.jpg') center/cover no-repeat; will-change:transform; }
+    .half.top { clip-path:inset(0 0 calc(100% - var(--seam,62.7%)) 0); }
+    .half.bottom { clip-path:inset(var(--seam,62.7%) 0 0 0); }
+    .glint { position:absolute; inset:0; z-index:2; pointer-events:none; mix-blend-mode:screen; background:radial-gradient(circle at var(--gx,50%) 38%, rgba(255,210,210,.16), transparent 42%); }
+    #embers { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:3; }
+    .hero-ui { position:absolute; left:0; right:0; bottom:0; z-index:4; display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; padding:80px 4% 34px;
+      background:linear-gradient(0deg,rgba(8,4,5,.9),transparent); }
+    .hero-ui .place { font-size:13px; letter-spacing:4px; text-transform:uppercase; color:var(--fg); font-weight:600; }
+    .hero-ui .hint { color:var(--muted); font-size:12px; margin-top:6px; }
+    .hero-actions { display:flex; gap:14px; flex-wrap:wrap; }
+
+
+    /* Призыв листать вниз (капля) */
+    .cue { position:absolute; left:50%; bottom:26px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--fg); font-weight:600; }
+    .cue i { width:2px; height:48px; background:linear-gradient(var(--scarlet),transparent); transform-origin:top; animation:drip 1.9s ease-in infinite; }
+    @keyframes drip { 0% { transform:scaleY(0); opacity:1; } 60% { transform:scaleY(1); opacity:1; } 100% { transform:scaleY(1); opacity:0; } }
+    @media (max-width:1000px) { .cue { display:none; } }
+
+    /* Помощь и папка с эскизами (после раскрытия матрёшки) */
+    .help-m { display:none; }
+    .help { padding:110px 0; background:radial-gradient(circle at 78% 50%,rgba(179,18,43,.2),transparent 58%),var(--bg); }
+    .help-grid { display:grid; grid-template-columns:1.05fr 1fr; gap:70px; align-items:center; }
+    .help-text p { color:var(--muted); max-width:520px; margin-bottom:16px; }
+    .help-btns { display:flex; gap:14px; flex-wrap:wrap; margin-top:30px; }
+    .folder { position:relative; display:block; width:min(440px,100%,52vh); aspect-ratio:1/1; margin:0 auto; }
+    .fd-back { position:absolute; left:0; right:0; bottom:0; height:62%; background:linear-gradient(160deg,#4a0a17,#1d0408); border:1px solid var(--line); border-radius:6px 22px 6px 6px; }
+    .fd-back::before { content:""; position:absolute; left:-1px; top:-22px; width:36%; height:22px; background:#4a0a17; border:1px solid var(--line); border-bottom:0; border-radius:12px 12px 0 0; }
+    .fd-wrap { position:absolute; bottom:38%; width:34%; aspect-ratio:3/4; z-index:2; }
+    .fd-wrap.s1 { left:3%; } .fd-wrap.s2 { left:22%; } .fd-wrap.s3 { left:41%; } .fd-wrap.s4 { left:60%; }
+    .fd-sk { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:1px solid rgba(238,230,220,.5); background:#000; box-shadow:0 10px 30px rgba(0,0,0,.65); transform-origin:50% 100%; transition:transform .55s cubic-bezier(.2,.8,.2,1); }
+    .s1 .fd-sk { transform:rotate(-15deg); }
+    .s2 .fd-sk { transform:rotate(-5deg); }
+    .s3 .fd-sk { transform:rotate(5deg); }
+    .s4 .fd-sk { transform:rotate(15deg); }
+    .folder:hover .s1 .fd-sk, .folder:focus-visible .s1 .fd-sk { transform:translateY(-9%) rotate(-19deg); }
+    .folder:hover .s2 .fd-sk, .folder:focus-visible .s2 .fd-sk { transform:translateY(-12%) rotate(-7deg); }
+    .folder:hover .s3 .fd-sk, .folder:focus-visible .s3 .fd-sk { transform:translateY(-12%) rotate(7deg); }
+    .folder:hover .s4 .fd-sk, .folder:focus-visible .s4 .fd-sk { transform:translateY(-9%) rotate(19deg); }
+    .fd-front { position:absolute; left:0; right:0; bottom:0; height:55%; z-index:5; display:flex; flex-direction:column; justify-content:flex-end; gap:6px; padding:24px 28px;
+      background:linear-gradient(180deg,#7a0f23,#470915); border:1px solid rgba(224,33,63,.55); border-radius:4px 4px 22px 22px; box-shadow:0 -10px 30px rgba(0,0,0,.35); }
+    .fd-front b { font-family:'Playfair Display',serif; text-transform:uppercase; letter-spacing:3px; font-size:clamp(20px,2.6vw,28px); font-weight:700; }
+    .fd-front small { color:#e9c9cc; font-size:13px; letter-spacing:1px; }
+
+    /* Бегущая строка */
+    .marquee { border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; white-space:nowrap; padding:20px 0; background:var(--bg2); }
+    .marquee-inner { display:inline-flex; gap:44px; animation:run 34s linear infinite; font-family:'Playfair Display',serif; text-transform:uppercase; letter-spacing:4px; font-size:20px; font-weight:700; color:var(--fg); }
+    .marquee-inner i { font-style:normal; color:var(--scarlet); }
+    @keyframes run { to { transform:translateX(-50%); } }
+
+    /* Слайдеры */
+    .slider { margin-top:10px; }
+    .s-track { display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding:6px 4% 6px; cursor:grab; -webkit-overflow-scrolling:touch; }
+    .s-track::-webkit-scrollbar { display:none; }
+    .s-track.drag { scroll-snap-type:none; scroll-behavior:auto; cursor:grabbing; }
+    .s-track > * { scroll-snap-align:start; flex:none; }
+    .s-ui { display:flex; align-items:center; gap:18px; padding:0 4%; margin-top:24px; }
+    .s-count { font-family:'Playfair Display',serif; font-size:20px; min-width:70px; color:var(--fg); }
+    .s-bar { flex:1; height:2px; background:var(--line); }
+    .s-bar i { display:block; height:100%; width:10%; background:var(--scarlet); transition:width .2s; }
+    .s-btn { width:46px; height:46px; border-radius:50%; border:1px solid var(--scarlet); background:transparent; color:var(--fg); font-size:20px; transition:background .2s; }
+    .s-btn:hover { background:var(--scarlet); }
+
+    .works { padding:100px 0; }
+    .work { position:relative; width:min(320px,76vw); aspect-ratio:3/4; overflow:hidden; border:1px solid var(--line); }
+    .work img { filter:grayscale(.85) contrast(1.05); transition:filter .5s, transform .7s; }
+    .work:hover img { filter:grayscale(0); transform:scale(1.06); }
+
+    /* Эскизы */
+    .sketches { padding:100px 0; background:var(--bg2); }
+    .sk-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .sk { aspect-ratio:1/1; overflow:hidden; border:1px solid var(--line); background:#000; }
+    .sk img { transition:transform .7s; }
+    .sk:hover img { transform:scale(1.07); }
+
+    /* Стили */
+    .styles { padding:100px 0; }
+    .st-row { display:flex; align-items:flex-start; gap:24px; padding:22px 0; border-bottom:1px solid var(--line); transition:padding .3s, color .3s; }
+    .st-row:first-of-type { border-top:1px solid var(--line); }
+    .st-row .n { font-family:'Playfair Display',serif; color:var(--scarlet); font-size:20px; width:48px; padding-top:10px; }
+    .st-row .t { font-family:'Playfair Display',serif; text-transform:uppercase; letter-spacing:4px; font-size:clamp(24px,4.2vw,50px); font-weight:700; display:block; transition:color .3s; }
+    .st-body { flex:1; }
+    .st-body .d { color:var(--muted); font-size:15px; max-width:640px; margin-top:8px; line-height:1.6; }
+    .st-row:hover { padding-left:26px; }
+    .st-row:hover .t { color:var(--scarlet); }
+
+    /* Мастера */
+    .masters { padding:100px 0; background:var(--bg2); }
+    .m-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .m-card { border:1px solid var(--line); padding:14px; background:var(--bg); transition:border-color .3s; will-change:transform; }
+    .m-card:hover { border-color:var(--scarlet); }
+    .m-card h3 { font-size:28px; color:var(--fg); margin:16px 0 2px; }
+    .m-card .role { color:var(--scarlet); font-size:12px; letter-spacing:3px; text-transform:uppercase; font-weight:600; }
+    .m-card .m-desc { color:var(--muted); font-size:14px; margin-top:10px; line-height:1.6; }
+
+    /* Мастер: смена трёх фото */
+    .m-photo { position:relative; aspect-ratio:4/5; overflow:hidden; border:1px solid var(--line); background:#000; }
+    .m-photo img { position:absolute; inset:0; opacity:0; transform:scale(1); transition:opacity 1.2s ease, transform 7s ease; }
+    .m-photo img.on { opacity:1; transform:scale(1.07); }
+    .m-photo::after { content:""; position:absolute; inset:0; background:linear-gradient(0deg,rgba(8,4,5,.85),transparent 40%); pointer-events:none; }
+    .m-step { position:absolute; left:16px; bottom:30px; z-index:2; color:var(--fg); font-size:12px; letter-spacing:4px; text-transform:uppercase; font-weight:600; }
+    .m-dots { position:absolute; left:16px; bottom:14px; z-index:2; display:flex; gap:6px; }
+    .m-dots i { width:22px; height:2px; background:rgba(238,230,220,.3); transition:background .4s, width .4s; }
+    .m-dots i.on { background:var(--scarlet); width:34px; }
+
+    /* Процесс: 4 карточки в ряд на компьютере, слайдер на телефоне */
+    .process { padding:100px 0; }
+    .p-card { width:min(520px,82vw); min-height:270px; background:linear-gradient(135deg,#1c0a10,#0c0507); border:1px solid var(--line); padding:32px; display:flex; flex-direction:column; justify-content:space-between; }
+    .p-card .num { font-family:'Playfair Display',serif; font-size:64px; color:var(--scarlet); line-height:1; font-weight:800; }
+    .p-card h3 { font-size:26px; margin-bottom:8px; }
+    .p-card p { color:var(--muted); }
+    @media (min-width:1100px) {
+      .process .s-track { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; width:min(1180px,92%); margin:0 auto; padding:6px 0; overflow:visible; cursor:default; }
+      .process .s-ui { display:none; }
+      .process .p-card { width:auto; min-height:290px; padding:26px 22px; }
+      .process .p-card .num { font-size:54px; }
+      .process .p-card h3 { font-size:20px; letter-spacing:1px; overflow-wrap:break-word; }
+      .process .p-card p { font-size:14px; }
+    }
+
+    /* Студия */
+    .studio { padding:100px 0; background:var(--bg2); }
+    .stu-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .stu { aspect-ratio:4/3; overflow:hidden; border:1px solid var(--line); }
+    .stu img { transition:transform .7s; }
+    .stu:hover img { transform:scale(1.07); }
+
+    /* Цены */
+    .prices { padding:100px 0; }
+    .pr-row { display:flex; justify-content:space-between; align-items:baseline; gap:20px; padding:22px 0; border-bottom:1px solid var(--line); }
+    .pr-row:first-of-type { border-top:1px solid var(--line); }
+    .pr-row span { font-family:'Playfair Display',serif; text-transform:uppercase; letter-spacing:3px; font-size:clamp(20px,3vw,32px); font-weight:700; }
+    .pr-row b { color:var(--scarlet); font-family:'Playfair Display',serif; font-size:clamp(22px,3.4vw,38px); white-space:nowrap; font-weight:700; }
+    .note { color:var(--muted); font-size:13px; margin-top:20px; }
+
+    /* О студии */
+    .about { padding:100px 0; background:var(--bg2); }
+    .about-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:60px; align-items:center; }
+    .about p { color:var(--muted); margin-bottom:16px; }
+    .stats { display:grid; gap:20px; }
+    .stat { display:grid; grid-template-columns:2.3em 1fr; align-items:center; gap:18px; border:1px solid var(--line); padding:22px 26px; background:var(--bg); font-size:clamp(54px,7vw,78px); }
+    .stat b { font-family:'Playfair Display',serif; color:var(--scarlet); font-size:1em; line-height:1; font-weight:800; white-space:nowrap; }
+    .stat em { font-style:normal; color:var(--muted); font-size:13px; letter-spacing:2px; text-transform:uppercase; line-height:1.4; }
+
+    /* Частые вопросы */
+    .faq { padding:100px 0; }
+    .faq-list { display:grid; gap:14px; max-width:880px; }
+    .faq details { border:1px solid var(--line); background:var(--bg2); transition:border-color .3s, background .3s; }
+    .faq details[open] { border-color:var(--scarlet); background:#1a0a0e; }
+    .faq summary { list-style:none; display:flex; justify-content:space-between; align-items:center; gap:20px; padding:22px 26px;
+      font-family:'Playfair Display',serif; text-transform:uppercase; letter-spacing:2px; font-weight:700; font-size:clamp(15px,1.9vw,20px); line-height:1.3; transition:color .25s; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:"+"; flex:none; color:var(--scarlet); font-size:30px; line-height:1; transition:transform .3s; }
+    .faq details[open] summary::after { transform:rotate(45deg); }
+    .faq summary:hover { color:var(--scarlet); }
+    .faq .ans { padding:0 26px 26px; color:var(--muted); max-width:740px; }
+    .faq .ans p + p { margin-top:10px; }
+
+    /* Контакты */
+    .contacts { padding:100px 0; border-top:1px solid var(--line); }
+    .c-grid { display:grid; grid-template-columns:1fr 1fr; gap:50px; }
+    .c-item { margin-bottom:24px; }
+    .c-item b { display:block; color:var(--scarlet); font-weight:600; font-size:12px; letter-spacing:3px; text-transform:uppercase; margin-bottom:2px; }
+    .c-item span,.c-item a { font-size:21px; }
+    .c-btns { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; }
+    .map { position:relative; aspect-ratio:4/3; min-height:300px; border:1px solid var(--line); background:#14090c; overflow:hidden; }
+    .map iframe { position:absolute; inset:0; width:100%; height:100%; border:0; filter:invert(.92) hue-rotate(180deg) grayscale(.45) contrast(.92); }
+    .map-links { display:flex; gap:22px; flex-wrap:wrap; margin-top:14px; }
+    .map-links a { color:var(--scarlet); font-size:13px; letter-spacing:1px; font-weight:600; }
+    .map-links a:hover { text-decoration:underline; }
+    footer { padding:34px 4%; text-align:center; color:var(--muted); font-size:12px; letter-spacing:2px; border-top:1px solid var(--line); }
+    footer img { width:64px; height:64px; border-radius:50%; margin:0 auto 12px; border:1px solid var(--scarlet); }
+
+    /* Просмотр фото */
+    .lb { position:fixed; inset:0; z-index:300; background:rgba(5,2,3,.95); display:none; align-items:center; justify-content:center; }
+    .lb.open { display:flex; }
+    .lb img { width:auto; height:auto; max-width:92vw; max-height:86vh; object-fit:contain; border:1px solid var(--line); }
+    .lb button { position:absolute; background:transparent; border:1px solid var(--scarlet); color:var(--fg); width:48px; height:48px; border-radius:50%; font-size:22px; }
+    .lb button:hover { background:var(--scarlet); }
+    .lb .x { top:20px; right:20px; } .lb .p { left:20px; top:50%; } .lb .n { right:20px; top:50%; }
+    .lb .cnt { position:absolute; bottom:22px; left:0; right:0; text-align:center; color:var(--muted); font-size:13px; letter-spacing:3px; }
+
+    @media (max-width:900px) {
+      .help-grid { grid-template-columns:1fr; gap:60px; }
+      .hero { height:88vh; height:88svh; }
+      .inside { display:none; }
+      .help-m { display:block; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .inside { display:none; }
+      .help-m { display:block; }
+    }
+    @media (max-width:800px) {
+      .nav nav { display:none; }
+      .help { padding:80px 0; }
+      .sk-grid { grid-template-columns:1fr 1fr; }
+      .m-grid,.stu-grid,.about-grid,.c-grid { grid-template-columns:1fr; }
+      .pr-row { flex-direction:column; gap:4px; }
+      .faq summary { padding:18px 18px; }
+      .faq .ans { padding:0 18px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a href="#top" class="brand"><img src="images/brand/logo.jpg" alt="Логотип Матрёшка"></a>
+    <nav>
+      <a href="#works">Работы</a>
+      <a href="catalog.html">Каталог</a>
+      <a href="#styles">Стили</a>
+      <a href="#masters">Мастера</a>
+      <a href="#prices">Цены</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a href="#contacts" class="btn fill magnetic">Записаться</a>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="inside">
+      <div class="wrap help-grid">
+        <div class="help-text">
+          <p class="tag">Каталог эскизов</p>
+          <h2 class="h2">Поможем на любом этапе</h2>
+          <p>Наша студия всегда готова помочь на любом этапе: от создания эскиза до исправления неудачной татуировки.</p>
+          <p>Если вы ещё не определились, загляните в каталог. Там собраны готовые эскизы, и один из них вы можете выбрать для себя.</p>
+          <div class="help-btns">
+            <a href="catalog.html" class="btn fill magnetic">Смотреть каталог</a>
+            <a href="#contacts" class="btn magnetic">Обсудить с мастером</a>
+          </div>
+        </div>
+        <a class="folder" href="catalog.html" aria-label="Открыть каталог эскизов">
+        <div class="fd-back"></div>
+        <div class="fd-wrap s1"><img class="fd-sk" src="images/catalog/japan-01.jpg" alt=""></div>
+        <div class="fd-wrap s2"><img class="fd-sk" src="images/catalog/realism-01.jpg" alt=""></div>
+        <div class="fd-wrap s3"><img class="fd-sk" src="images/catalog/japan-02.jpg" alt=""></div>
+        <div class="fd-wrap s4"><img class="fd-sk" src="images/catalog/realism-02.jpg" alt=""></div>
+        <div class="fd-front"><b>Каталог эскизов</b><small>Выберите готовый эскиз и обсудите его с мастером</small></div>
+        </a>
+      </div>
+    </div>
+    <div class="stage" id="tilt"><div class="breathe" id="breathe">
+      <div class="half top" id="halfTop"></div>
+      <div class="half bottom" id="halfBottom"></div>
+    </div></div>
+    <div class="glint" id="glint"></div>
+    <canvas id="embers"></canvas>
+    <div class="hero-ui" id="heroUi">
+      <div>
+        <div class="place">Тату-студия · Череповец</div>
+        <div class="hint">Листай вниз, матрёшка раскроется</div>
+      </div>
+      <div class="cue"><span>Листай вниз</span><i></i></div>
+      <div class="hero-actions">
+        <a href="#contacts" class="btn fill magnetic">Записаться на сеанс</a>
+        <a href="#works" class="btn magnetic">Смотреть работы</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="help help-m">
+    <div class="wrap help-grid">
+      <div class="help-text">
+        <p class="tag reveal">Каталог эскизов</p>
+        <h2 class="h2">Поможем на любом этапе</h2>
+        <p class="reveal">Наша студия всегда готова помочь на любом этапе: от создания эскиза до исправления неудачной татуировки.</p>
+        <p class="reveal">Если вы ещё не определились, загляните в каталог. Там собраны готовые эскизы, и один из них вы можете выбрать для себя.</p>
+        <div class="help-btns reveal">
+          <a href="catalog.html" class="btn fill magnetic">Смотреть каталог</a>
+          <a href="#contacts" class="btn magnetic">Обсудить с мастером</a>
+        </div>
+      </div>
+      <a class="folder reveal" href="catalog.html" aria-label="Открыть каталог эскизов">
+        <div class="fd-back"></div>
+        <div class="fd-wrap s1"><img class="fd-sk" src="images/catalog/japan-01.jpg" alt=""></div>
+        <div class="fd-wrap s2"><img class="fd-sk" src="images/catalog/realism-01.jpg" alt=""></div>
+        <div class="fd-wrap s3"><img class="fd-sk" src="images/catalog/japan-02.jpg" alt=""></div>
+        <div class="fd-wrap s4"><img class="fd-sk" src="images/catalog/realism-02.jpg" alt=""></div>
+        <div class="fd-front"><b>Каталог эскизов</b><small>Выберите готовый эскиз и обсудите его с мастером</small></div>
+      </a>
+    </div>
+  </section>
+
+  <div class="marquee">
+    <div class="marquee-inner">
+      <span>Блэкворк</span><i>✦</i><span>Реализм</span><i>✦</i><span>Графика</span><i>✦</i><span>Цветное</span><i>✦</i><span>Мелкие работы</span><i>✦</i>
+      <span>Блэкворк</span><i>✦</i><span>Реализм</span><i>✦</i><span>Графика</span><i>✦</i><span>Цветное</span><i>✦</i><span>Мелкие работы</span><i>✦</i>
+      <span>Блэкворк</span><i>✦</i><span>Реализм</span><i>✦</i><span>Графика</span><i>✦</i><span>Цветное</span><i>✦</i><span>Мелкие работы</span><i>✦</i>
+      <span>Блэкворк</span><i>✦</i><span>Реализм</span><i>✦</i><span>Графика</span><i>✦</i><span>Цветное</span><i>✦</i><span>Мелкие работы</span><i>✦</i>
+    </div>
+  </div>
+
+  <section class="works" id="works">
+    <div class="wrap">
+      <p class="tag reveal">01 · Работы</p>
+      <h2 class="h2">Наши работы</h2>
+      <p class="sub reveal">Перетаскивай мышкой, листай стрелками или нажми на фото, чтобы открыть его на весь экран.</p>
+    </div>
+    <div class="slider" data-slider>
+      <div class="s-track" data-lb="tattoos">
+        <div class="work"><img src="images/tattoos/photo_5348406883066258079_w.jpg" alt="Татуировка 1"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258081_w.jpg" alt="Татуировка 2"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258082_w.jpg" alt="Татуировка 3"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258085_w.jpg" alt="Татуировка 4"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258086_w.jpg" alt="Татуировка 5"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258088_w.jpg" alt="Татуировка 6"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258090_w.jpg" alt="Татуировка 7"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258091_w.jpg" alt="Татуировка 8"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258092_w.jpg" alt="Татуировка 9"></div>
+        <div class="work"><img src="images/tattoos/photo_5348406883066258093_w.jpg" alt="Татуировка 10"></div>
+        <div class="work"><img src="images/tattoos/photo_5381962852664549079_y.jpg" alt="Татуировка 11"></div>
+      </div>
+      <div class="s-ui">
+        <span class="s-count">1 / 11</span>
+        <div class="s-bar"><i></i></div>
+        <button class="s-btn s-prev" aria-label="Назад">‹</button>
+        <button class="s-btn s-next" aria-label="Вперёд">›</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="line-draw"></div>
+
+  <section class="sketches">
+    <div class="wrap">
+      <p class="tag reveal">02 · Эскизы</p>
+      <h2 class="h2">Эскизы</h2>
+      <p class="sub reveal">Каждый рисунок готовим индивидуально: обсуждаем идею, рисуем эскиз и согласовываем до начала сеанса.</p>
+      <div class="sk-grid" data-lb="sketches">
+        <div class="sk reveal"><img src="images/sketches/sketch1.jpg" alt="Эскиз 1"></div>
+        <div class="sk reveal"><img src="images/sketches/sketch2.jpg" alt="Эскиз 2"></div>
+        <div class="sk reveal"><img src="images/sketches/sketch3.jpg" alt="Эскиз 3"></div>
+        <div class="sk reveal"><img src="images/sketches/sketch4.jpg" alt="Эскиз 4"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="styles" id="styles">
+    <div class="wrap">
+      <p class="tag reveal">03 · Стили</p>
+      <h2 class="h2">Стили</h2>
+      <div class="st-row reveal"><span class="n">01</span><div class="st-body"><span class="t">Блэкворк</span><p class="d">Тату только чёрной краской: плотные заливки, орнаменты, острые узоры. Максимальный контраст, выглядит смело и со временем почти не теряет чёткость.</p></div></div>
+      <div class="st-row reveal"><span class="n">02</span><div class="st-body"><span class="t">Реализм</span><p class="d">Рисунок как на фотографии: портреты, животные, предметы с тенями и мелкими деталями. Самый кропотливый стиль, поэтому нужен хороший эскиз и время.</p></div></div>
+      <div class="st-row reveal"><span class="n">03</span><div class="st-body"><span class="t">Графика</span><p class="d">Тату как гравюра или иллюстрация: чёткие линии, штриховка, точки. Подходит и для крупных сюжетов, и для тонких аккуратных работ.</p></div></div>
+      <div class="st-row reveal"><span class="n">04</span><div class="st-body"><span class="t">Цветное</span><p class="d">Яркие цвета и плавные переходы: от акварельных разводов до насыщенных рисунков. Подбираем палитру под ваш тон кожи.</p></div></div>
+      <div class="st-row reveal"><span class="n">05</span><div class="st-body"><span class="t">Мелкие работы</span><p class="d">Небольшие тату: символы, надписи, тонкие линии. Делаются быстро, обычно за один сеанс, и отлично подходят для первой татуировки.</p></div></div>
+    </div>
+  </section>
+
+  <div class="line-draw"></div>
+
+  <section class="masters" id="masters">
+    <div class="wrap">
+      <p class="tag reveal">04 · Мастера</p>
+      <h2 class="h2">Мастера</h2>
+      <div class="m-grid">
+        <div class="m-card tilt reveal">
+          <div class="m-photo">
+            <img src="images/masters/daria-1-sketch.jpg" alt="Дарья: эскиз">
+            <img src="images/masters/daria-2-tattoo.jpg" alt="Дарья: татуировка">
+            <img src="images/masters/daria-3-real.jpg" alt="Дарья, тату-мастер">
+            <div class="m-step">Эскиз</div>
+            <div class="m-dots"><i></i><i></i><i></i></div>
+          </div>
+          <h3>Дарья</h3><p class="role">Создатель студии</p>
+          <p class="m-desc">Создатель и душа «Матрёшки». Именно с неё началась студия, и именно она задаёт тон: внимание к человеку и аккуратная работа.</p>
+        </div>
+        <div class="m-card tilt reveal">
+          <div class="m-photo">
+            <img src="images/masters/irina-1.jpg" alt="Ирина: эскиз">
+            <img src="images/masters/irina-2.jpg" alt="Ирина: татуировка">
+            <img src="images/masters/irina-3.jpg" alt="Ирина, тату-мастер">
+            <div class="m-step">Эскиз</div>
+            <div class="m-dots"><i></i><i></i><i></i></div>
+          </div>
+          <h3>Ирина</h3><p class="role">Самый опытный мастер</p>
+          <p class="m-desc">Мастер с самым большим опытом в студии. Не боится браться за самые тяжёлые и сложные татуировки.</p>
+        </div>
+        <div class="m-card tilt reveal">
+          <div class="m-photo">
+            <img src="images/masters/viktoriya-1.jpg" alt="Виктория: эскиз">
+            <img src="images/masters/viktoriya-2.jpg" alt="Виктория: татуировка">
+            <img src="images/masters/viktoriya-3.jpg" alt="Виктория, тату-мастер">
+            <div class="m-step">Эскиз</div>
+            <div class="m-dots"><i></i><i></i><i></i></div>
+          </div>
+          <h3>Виктория</h3><p class="role">Блэкворк</p>
+          <p class="m-desc">Молодой и очень амбициозный мастер. Работает в блэкворке: плотная чёрная графика и смелые решения.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <div class="wrap">
+      <p class="tag reveal">05 · Процесс</p>
+      <h2 class="h2">Как рождается тату</h2>
+    </div>
+    <div class="slider" data-slider>
+      <div class="s-track">
+        <div class="p-card"><div class="num">I</div><div><h3>Идея и эскиз</h3><p>Обсуждаем, что вы хотите, подбираем стиль и размер, рисуем эскиз под ваше тело.</p></div></div>
+        <div class="p-card"><div class="num">II</div><div><h3>Согласование</h3><p>Вносим правки, пока вы не скажете «да». Называем точную цену и время сеанса.</p></div></div>
+        <div class="p-card"><div class="num">III</div><div><h3>Сеанс</h3><p>Работаем стерильными материалами, спокойно и без спешки. Вы всегда можете сделать паузу.</p></div></div>
+        <div class="p-card"><div class="num">IV</div><div><h3>Уход</h3><p>Рассказываем, как ухаживать за тату, чтобы она зажила идеально и служила годами.</p></div></div>
+      </div>
+      <div class="s-ui">
+        <span class="s-count">1 / 4</span>
+        <div class="s-bar"><i></i></div>
+        <button class="s-btn s-prev" aria-label="Назад">‹</button>
+        <button class="s-btn s-next" aria-label="Вперёд">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio" id="studio">
+    <div class="wrap">
+      <p class="tag reveal">06 · Студия</p>
+      <h2 class="h2">Студия</h2>
+      <div class="stu-grid" data-lb="studio">
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274764_w.jpg" alt="Студия 1"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274765_w.jpg" alt="Студия 2"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274766_w.jpg" alt="Студия 3"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274768_w.jpg" alt="Студия 4"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274769_w.jpg" alt="Студия 5"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274770_w.jpg" alt="Студия 6"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274771_w.jpg" alt="Студия 7"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274772_w.jpg" alt="Студия 8"></div>
+        <div class="stu reveal"><img src="images/studio/photo_5341504123297274773_w.jpg" alt="Студия 9"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prices" id="prices">
+    <div class="wrap">
+      <p class="tag reveal">07 · Цены</p>
+      <h2 class="h2">Цены</h2>
+      <div class="pr-row reveal"><span>Мелкие работы</span><b>от 3 000 ₽</b></div>
+      <div class="pr-row reveal"><span>Средние работы</span><b>от 5 000 ₽</b></div>
+      <div class="pr-row reveal"><span>Крупные работы</span><b>от 8 000 ₽</b></div>
+      <p class="note reveal">Точную стоимость называем после обсуждения эскиза: она зависит от размера, места и сложности.</p>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="tag reveal">08 · О студии</p>
+        <h2 class="h2">О студии</h2>
+        <p class="reveal">«Матрёшка» работает в Череповце уже год. За это время мы сделали больше 50 работ и поняли главное: к каждому человеку нужен свой подход.</p>
+        <p class="reveal">Мы не бьём по шаблону. Слушаем, разбираем идею вместе с вами, готовим эскиз именно под ваше тело и только потом начинаем. Работаем стерильными материалами, называем честные цены и не торопим.</p>
+        <p class="reveal">Наша особенность — особое отношение к клиенту. Приходите с идеей или с одним лишь желанием, а уйдёте с рисунком, которым будете гордиться.</p>
+      </div>
+      <div class="stats">
+        <div class="stat reveal"><b><span class="count" data-to="1">0</span></b><em>год работы</em></div>
+        <div class="stat reveal"><b><span class="count" data-to="50">0</span>+</b><em>выполненных работ</em></div>
+        <div class="stat reveal"><b><span class="count" data-to="3">0</span></b><em>мастера</em></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <p class="tag reveal">09 · Частые вопросы</p>
+      <h2 class="h2">Частые вопросы</h2>
+      <p class="sub reveal">Отвечаем на то, что нас спрашивают чаще всего. Если вашего вопроса нет, напишите или позвоните: подскажем.</p>
+      <div class="faq-list">
+        <details class="reveal">
+          <summary>Как у вас с гигиеной и стерильностью?</summary>
+          <div class="ans">
+            <p>Для нас это основа работы. Иглы и картриджи одноразовые и вскрываются при вас. Все многоразовые инструменты проходят паровую стерилизацию в специальных аппаратах.</p>
+            <p>Рабочая зона и оборудование защищены плёнкой, поверхности после каждого клиента обрабатываются антисептиками, а мастер работает в новых перчатках.</p>
+          </div>
+        </details>
+        <details class="reveal">
+          <summary>Это больно?</summary>
+          <div class="ans">
+            <p>Ощущения зависят от места и вашей чувствительности. Рёбра, кисти, стопы и внутренняя сторона руки чувствительнее, плечо, предплечье и бедро переносятся легче.</p>
+            <p>Мастер работает спокойно, без спешки, и делает паузу по первой вашей просьбе.</p>
+          </div>
+        </details>
+        <details class="reveal">
+          <summary>Как подготовиться к сеансу?</summary>
+          <div class="ans">
+            <p>Выспитесь и хорошо поешьте перед приходом. За сутки до сеанса не пейте алкоголь, а в день сеанса лучше обойтись без большого количества кофе и энергетиков.</p>
+            <p>Наденьте удобную одежду, чтобы мастер мог легко добраться до нужного места. Кожа в этой зоне должна быть без свежего загара и раздражений. Если вы принимаете лекарства или у вас есть заболевания, скажите об этом мастеру заранее.</p>
+          </div>
+        </details>
+        <details class="reveal">
+          <summary>Как ухаживать за тату и сколько она заживает?</summary>
+          <div class="ans">
+            <p>Поверхностное заживление занимает примерно 2–4 недели, а кожа под рисунком восстанавливается дольше. После сеанса мастер даёт подробную инструкцию по уходу.</p>
+            <p>Главное: не сдирать корочки и не расчёсывать, не мочить тату в бане, бассейне и открытой воде, беречь её от прямого солнца.</p>
+          </div>
+        </details>
+        <details class="reveal">
+          <summary>Можно ли исправить или перекрыть старую тату?</summary>
+          <div class="ans">
+            <p>Да. Мастер посмотрит на старую работу и честно скажет, что с ней можно сделать: доработать, скорректировать или перекрыть новым рисунком.</p>
+            <p>Приходите на консультацию, лучше сразу с фото. Подберём решение и согласуем эскиз до начала сеанса.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacts" id="contacts">
+    <div class="wrap">
+      <p class="tag reveal">10 · Контакты</p>
+      <h2 class="h2">Запись на сеанс</h2>
+      <div class="c-grid">
+        <div class="reveal">
+          <div class="c-item"><b>Адрес</b><span>Череповец, Ленина 102б</span></div>
+          <div class="c-item"><b>Телефон</b><a href="tel:+79646662004">+7 (964) 666-20-04</a></div>
+          <div class="c-item"><b>Время работы</b><span>Ежедневно с 12:00 до 20:00</span></div>
+          <div class="c-item"><b>Telegram</b><a href="https://t.me/rbcva_04" target="_blank" rel="noopener">@rbcva_04</a></div>
+          <div class="c-btns">
+            <a href="tel:+79646662004" class="btn fill magnetic">Позвонить</a>
+            <a href="https://t.me/rbcva_04" target="_blank" rel="noopener" class="btn magnetic">Написать в Telegram</a>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="map">
+            <iframe title="Карта: студия Матрёшка, Череповец, Ленина 102б" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://yandex.ru/map-widget/v1/?ll=37.902096%2C59.128311&amp;z=17&amp;l=map&amp;pt=37.902096,59.128311,pm2rdm"></iframe>
+          </div>
+          <div class="map-links">
+            <a href="https://yandex.ru/maps/?rtext=~59.128311,37.902096&amp;rtt=auto" target="_blank" rel="noopener">Построить маршрут</a>
+            <a href="https://yandex.ru/maps/?ll=37.902096%2C59.128311&amp;z=17&amp;pt=37.902096,59.128311,pm2rdm" target="_blank" rel="noopener">Открыть на Яндекс Картах</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <img src="images/brand/logo.jpg" alt="Матрёшка">
+    © <span id="year"></span> Матрёшка · Тату-студия · Череповец
+  </footer>
+
+  <div class="lb" id="lb">
+    <button class="x" aria-label="Закрыть">×</button>
+    <button class="p" aria-label="Назад">‹</button>
+    <img id="lbImg" alt="">
+    <button class="n" aria-label="Вперёд">›</button>
+    <div class="cnt" id="lbCnt"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const hero = document.getElementById('top');
+
+    // Шов матрёшки
+    function setSeam() {
+      const vw = window.innerWidth, vh = hero.clientHeight, iw = 2576, ih = 1438;
+      const s = Math.max(vw / iw, vh / ih), dh = ih * s, off = (vh - dh) / 2;
+      hero.style.setProperty('--seam', (off + dh * 0.627) + 'px');
+    }
+    setSeam(); window.addEventListener('resize', setSeam);
+
+    // Искры
+    (function () {
+      if (reduce) return;
+      const cv = document.getElementById('embers'), ctx = cv.getContext('2d');
+      let W, H, parts = [];
+      function size() { W = cv.width = hero.clientWidth; H = cv.height = hero.clientHeight; }
+      size(); window.addEventListener('resize', size);
+      for (let i = 0; i < 50; i++) parts.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.8 + 0.4, vy: Math.random() * 0.4 + 0.1, vx: (Math.random() - 0.5) * 0.15, a: Math.random() });
+      let on = true;
+      new IntersectionObserver(e => on = e[0].isIntersecting).observe(hero);
+      (function draw() {
+        if (on) {
+          ctx.clearRect(0, 0, W, H);
+          parts.forEach(p => {
+            p.y -= p.vy / H * 2; p.x += p.vx / W * 2; p.a += (Math.random() - 0.5) * 0.06;
+            if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+            const a = Math.max(0.1, Math.min(0.9, p.a));
+            ctx.beginPath(); ctx.arc(p.x * W, p.y * H, p.r, 0, 6.283);
+            ctx.fillStyle = 'rgba(235,70,80,' + a + ')'; ctx.fill();
+          });
+        }
+        requestAnimationFrame(draw);
+      })();
+    })();
+
+    // Псевдо-3D матрёшки: дыхание, наклон за мышью, блик
+    if (!reduce) {
+      gsap.set('#breathe', { scale: 1.05 });
+      gsap.to('#breathe', { scale: 1.09, duration: 9, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    }
+    if (fine && !reduce) {
+      const glint = document.getElementById('glint');
+      window.addEventListener('mousemove', e => {
+        const x = e.clientX / window.innerWidth - 0.5, y = e.clientY / window.innerHeight - 0.5;
+        gsap.to('#tilt', { rotationY: x * 5, rotationX: -y * 3.5, transformPerspective: 1400, duration: 0.8, ease: 'power2.out' });
+        gsap.to('#embers', { x: -x * 18, y: -y * 12, duration: 1 });
+        glint.style.setProperty('--gx', ((x + 0.5) * 100) + '%');
+      });
+      // Лёгкий наклон карточек мастеров
+      document.querySelectorAll('.tilt').forEach(el => {
+        el.addEventListener('mousemove', e => {
+          const r = el.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(el, { rotationY: x * 8, rotationX: -y * 8, transformPerspective: 800, duration: 0.4 });
+        });
+        el.addEventListener('mouseleave', () => gsap.to(el, { rotationX: 0, rotationY: 0, duration: 0.6 }));
+      });
+      // Магнитные кнопки
+      document.querySelectorAll('.magnetic').forEach(el => {
+        el.addEventListener('mousemove', e => {
+          const r = el.getBoundingClientRect();
+          gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.25, duration: 0.3 });
+        });
+        el.addEventListener('mouseleave', () => gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.4)' }));
+      });
+    }
+
+    // Заголовки по буквам
+    document.querySelectorAll('.h2').forEach(h => {
+      const text = h.textContent.trim();
+      h.setAttribute('aria-label', text);
+      h.textContent = '';
+      text.split(' ').forEach(word => {
+        const w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
+        word.split('').forEach(ch => { const c = document.createElement('span'); c.className = 'c'; c.textContent = ch; w.appendChild(c); });
+        h.appendChild(w);
+      });
+      if (!reduce) gsap.from(h.querySelectorAll('.c'), { opacity: 0, y: '0.5em', duration: 0.6, stagger: 0.025, ease: 'power2.out', scrollTrigger: { trigger: h, start: 'top 88%' } });
+    });
+
+    // Появление блоков, линии, счётчики
+    if (!reduce) {
+      gsap.utils.toArray('.reveal').forEach(el => gsap.from(el, { opacity: 0, y: 36, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 90%' } }));
+      gsap.utils.toArray('.line-draw').forEach(el => gsap.from(el, { scaleX: 0, duration: 1.4, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 92%' } }));
+    }
+    document.querySelectorAll('.count').forEach(el => {
+      const to = +el.dataset.to, o = { v: 0 };
+      gsap.to(o, { v: to, duration: 1.6, ease: 'power1.out', scrollTrigger: { trigger: el, start: 'top 90%' }, onUpdate: () => el.textContent = Math.round(o.v) });
+    });
+
+    // Раскрытие матрёшки (компьютер): эскизы вылетают и собираются в папку каталога
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
+      const inside = document.querySelector('.inside');
+      const folder = inside.querySelector('.folder');
+      const wraps = gsap.utils.toArray('.inside .fd-wrap');
+      const textEls = gsap.utils.toArray('.inside .help-text > *');
+      const parts = gsap.utils.toArray('.inside .fd-back, .inside .fd-front');
+      // позиция эскиза внутри папки (без учёта анимации), чтобы стартовать из центра экрана
+      const toCenter = el => ({
+        x: inside.offsetWidth / 2 - (folder.offsetLeft + el.offsetLeft + el.offsetWidth / 2),
+        y: inside.offsetHeight / 2 - (folder.offsetTop + el.offsetTop + el.offsetHeight / 2)
+      });
+      const fan = [[-0.26, 0.05, -12], [-0.09, -0.07, -4], [0.09, 0.03, 5], [0.26, -0.08, 13]];
+      gsap.set(folder, { visibility: 'hidden' });
+      gsap.set(textEls, { autoAlpha: 0, y: 24 });
+      gsap.set(parts, { autoAlpha: 0, y: 30 });
+      const open = gsap.timeline({ scrollTrigger: { trigger: '#top', start: 'top top', end: '+=2000', scrub: 1, pin: true, invalidateOnRefresh: true } });
+      open.to('#heroUi', { autoAlpha: 0, duration: 0.25 }, 0)
+          .to('#halfTop', { yPercent: -100, ease: 'power1.inOut', duration: 1 }, 0.1)
+          .to('#halfBottom', { yPercent: 100, ease: 'power1.inOut', duration: 1 }, 0.1)
+          .set(folder, { visibility: 'visible' }, 0.45)
+          .fromTo(wraps,
+            { autoAlpha: 0, scale: 0.2, rotation: 0, x: (i, el) => toCenter(el).x, y: (i, el) => toCenter(el).y },
+            { autoAlpha: 1, scale: 1.5, rotation: i => fan[i][2], x: (i, el) => toCenter(el).x + fan[i][0] * window.innerWidth, y: (i, el) => toCenter(el).y + fan[i][1] * window.innerHeight, stagger: 0.1, duration: 0.8, ease: 'back.out(1.3)' }, 0.5)
+          .to(wraps, { scale: 1, rotation: 0, x: 0, y: 0, stagger: 0.08, duration: 1.1, ease: 'power2.inOut' }, 1.8)
+          .to(parts, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power2.out' }, 2.0)
+          .to(textEls, { autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.7, ease: 'power2.out' }, 2.2)
+          .to({}, { duration: 0.6 });
+    });
+
+    // Слайдеры
+    document.querySelectorAll('[data-slider]').forEach(root => {
+      const track = root.querySelector('.s-track'), items = [...track.children];
+      const count = root.querySelector('.s-count'), bar = root.querySelector('.s-bar i');
+      const step = () => items[0].getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 20);
+      root.querySelector('.s-prev').addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      root.querySelector('.s-next').addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+      function update() {
+        const idx = Math.min(items.length, Math.round(track.scrollLeft / step()) + 1);
+        count.textContent = idx + ' / ' + items.length;
+        const max = track.scrollWidth - track.clientWidth;
+        bar.style.width = (10 + 90 * (max > 0 ? track.scrollLeft / max : 0)) + '%';
+      }
+      track.addEventListener('scroll', update, { passive: true }); update(); window.addEventListener('resize', update);
+      // Перетаскивание мышью
+      let down = false, sx = 0, sl = 0, moved = 0;
+      track.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; moved = 0; sx = e.clientX; sl = track.scrollLeft; track.classList.add('drag'); });
+      window.addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx)); track.scrollLeft = sl - dx; });
+      window.addEventListener('pointerup', () => { if (!down) return; down = false; track.classList.remove('drag'); setTimeout(() => moved = 0, 50); });
+      track.addEventListener('click', e => { if (moved > 5) { e.stopPropagation(); e.preventDefault(); } }, true);
+      track.addEventListener('dragstart', e => e.preventDefault());
+    });
+
+    // Просмотр фото на весь экран
+    (function () {
+      const lb = document.getElementById('lb'), img = document.getElementById('lbImg'), cnt = document.getElementById('lbCnt');
+      let list = [], i = 0;
+      function show() { img.src = list[i].src; img.alt = list[i].alt; cnt.textContent = (i + 1) + ' / ' + list.length; }
+      document.querySelectorAll('[data-lb]').forEach(group => {
+        const imgs = [...group.querySelectorAll('img')];
+        imgs.forEach((im, idx) => im.parentElement.addEventListener('click', () => { list = imgs; i = idx; show(); lb.classList.add('open'); }));
+      });
+      const close = () => lb.classList.remove('open');
+      lb.querySelector('.x').addEventListener('click', close);
+      lb.addEventListener('click', e => { if (e.target === lb) close(); });
+      lb.querySelector('.p').addEventListener('click', () => { i = (i - 1 + list.length) % list.length; show(); });
+      lb.querySelector('.n').addEventListener('click', () => { i = (i + 1) % list.length; show(); });
+      window.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') lb.querySelector('.p').click();
+        if (e.key === 'ArrowRight') lb.querySelector('.n').click();
+      });
+    })();
+
+    // Смена фото мастера: эскиз, тату, реальное фото (у каждого мастера свой старт)
+    document.querySelectorAll('.m-photo').forEach((box, bi) => {
+      const imgs = [...box.querySelectorAll('img')], dots = [...box.querySelectorAll('.m-dots i')], cap = box.querySelector('.m-step');
+      const names = ['Эскиз', 'Татуировка', 'Мастер'];
+      let k = 0;
+      function show(n) {
+        imgs.forEach((im, j) => im.classList.toggle('on', j === n));
+        dots.forEach((d, j) => d.classList.toggle('on', j === n));
+        cap.textContent = names[n];
+      }
+      show(0);
+      if (reduce) { show(imgs.length - 1); return; }
+      setTimeout(() => setInterval(() => { k = (k + 1) % imgs.length; show(k); }, 2800), bi * 900);
+    });
+
+    // Частые вопросы: открыт только один ответ
+    const faqs = [...document.querySelectorAll('.faq details')];
+    faqs.forEach(d => d.addEventListener('toggle', () => {
+      if (d.open) faqs.forEach(o => { if (o !== d) o.open = false; });
+      ScrollTrigger.refresh();
+    }));
+
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+  </script>
+</body>
+</html>
